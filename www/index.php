@@ -100,7 +100,7 @@
 		}
 	$bool = true;		//переменная, отвечающая за столкновения с монстрами
 	for($a = 1; $a <= $max; $a++) {
-		if(obstacle_monster($x, $y, $direction, $a) == false AND $direction !=0) {
+		if(obstacle_monster($x, $y, $direction, $a) == false AND $direction !=0 AND $direction!=5) {
 				if($monster_health[$a] > 0) {
 					echo 'Вы нанесли по монстру удар!';
 					$monster_health[$a] = $monster_health[$a] - $player_damage;
@@ -141,11 +141,17 @@
 		$coord[1] = $y;
 		$object->setCoord($coord);
 	}
+	if($direction == 5 AND  $bool == true	AND $health > 0) {
+		$x = $temp;
+		$coord[0] = $x;
+		$coord[1] = $y;
+		$object->setCoord($coord);
+	}
 
 for($num = 1; $num <= $max; $num++) {	//необходимо будет оптимизировать эту функцию
 	if($monster_health[$num] > 0) $dir = mt_rand(1,4); else $dir = 0;//случайный выбор направления движения монстра
 		if($dir == 1 AND obstacle($monster_position[$num][0], $monster_position[$num][1], $dir, $num) == true) {
-			/*$temp = $monster_position[$num][1] - 1;
+			$temp = $monster_position[$num][1] - 1;
 			$bool = true;		//переменная, отвечающая за столкновения с монстрами
 			for($a = 1; $a <= $max; $a++) if($monster_position[$a][0] == $monster_position[$num][0] AND $monster_position[$a][1] == $temp) {$bool = false; echo 'Пересечение снизу вверх!'; break;}
 			if($temp == 0 OR $bool == false OR ($monster_position[$num][0]==$x AND $temp==$y)) $monster_position[$num][1] = $temp+1; else $monster_position[$num][1] = $temp;
@@ -154,10 +160,10 @@ for($num = 1; $num <= $max; $num++) {	//необходимо будет опти
 				echo 'Монстр решил вас ударить!';
 				$health = $health - $monster_damage[$num];
 				$object->setHp($health);
-			}*/
+			}
 		}
 		if($dir == 2 AND obstacle($monster_position[$num][0], $monster_position[$num][1], $dir, $num) == true) {
-			/*$temp = $monster_position[$num][0] - 1;
+			$temp = $monster_position[$num][0] - 1;
 			$bool = true;		//переменная, отвечающая за столкновения с монстрами
 			for($a = 1; $a <= $max; $a++) if($monster_position[$a][0] == $temp AND $monster_position[$a][1] == $monster_position[$num][1]) {$bool = false; echo 'Пересечение справа налево!'; break;}
 			if($temp == 0 OR $bool == false OR ($temp==$x AND $monster_position[$num][1]==$y)) $monster_position[$num][0] = $temp+1; else $monster_position[$num][0] = $temp;
@@ -166,10 +172,10 @@ for($num = 1; $num <= $max; $num++) {	//необходимо будет опти
 				echo 'Монстр решил вас ударить!';
 				$health = $health - $monster_damage[$num];
 				$object->setHp($health);
-			}*/
+			}
 		}
 		if($dir == 3 AND obstacle($monster_position[$num][0], $monster_position[$num][1], $dir, $num) == true) {
-			/*$temp = $monster_position[$num][1] + 1;
+			$temp = $monster_position[$num][1] + 1;
 			$bool = true;		//переменная, отвечающая за столкновения с монстрами
 			for($a = 1; $a <= $max; $a++) if($monster_position[$a][0] == $monster_position[$num][0] AND $monster_position[$a][1] == $temp) {$bool = false; echo 'Пересечение сверху вниз!'; break;}
 			if($temp == $Height +1 OR $temp == false OR ($monster_position[$num][0]==$x AND $temp==$y)) $monster_position[$num][1] = $temp-1; else $monster_position[$num][1] = $temp;
@@ -178,10 +184,10 @@ for($num = 1; $num <= $max; $num++) {	//необходимо будет опти
 				echo 'Монстр решил вас ударить!';
 				$health = $health - $monster_damage[$num];
 				$object->setHp($health);
-			}*/
+			}
 		}
 		if($dir == 4 AND obstacle($monster_position[$num][0], $monster_position[$num][1], $dir, $num) == true) {
-			/*$temp = $monster_position[$num][0] + 1;
+			$temp = $monster_position[$num][0] + 1;
 			$bool = true;		//переменная, отвечающая за столкновения с монстрами
 			for($a = 1; $a <= $max; $a++) if($monster_position[$a][0] == $temp AND $monster_position[$a][1] == $monster_position[$num][1]) {$bool = false; echo 'Пересечение слева направо!'; break;}
 			if($temp == $Width+1 OR $temp == false OR ($temp==$x AND $monster_position[$num][1]==$y)) $monster_position[$num][0] = $temp-1; else $monster_position[$num][0] = $temp;
@@ -190,7 +196,7 @@ for($num = 1; $num <= $max; $num++) {	//необходимо будет опти
 				echo 'Монстр решил вас ударить!';
 				$health = $health - $monster_damage[$num];
 				$object->setHp($health);
-			}*/
+			}
 		}
 	}
 
@@ -225,7 +231,7 @@ for($num = 1; $num <= $max; $num++) {	//необходимо будет опти
 <head>
 <meta charset="utf-8">
 
-<title>Техдемка</title>
+<title>Техдемка, рабочая версия 0.0.2</title>
 <link href="styles.css" rel="stylesheet"/>
 <script src="jquery.js"></script>
 <script>
@@ -317,8 +323,9 @@ for($num = 1; $num <= $max; $num++) {	//необходимо будет опти
 						if($health != 0) {
 							echo '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a id="moveup" href = "index.php?direct=1">&uarr; </a><br> <br>';
 							echo '<a id="moveleft" href = "index.php?direct=2">&larr; </a>&nbsp; &nbsp; &nbsp;';
-							echo '<a id="movedown" href = "index.php?direct=3">&darr; </a>&nbsp; &nbsp; &nbsp';
-							echo '<a id="moveright" href = "index.php?direct=4">&rarr; </a>';
+							echo '<a href = "index.php?direct=5">stop </a>&nbsp; &nbsp; &nbsp;';
+							echo '<a id="moveright" href = "index.php?direct=4"> &rarr;</a>&nbsp; &nbsp; &nbsp <br><br>';
+							echo '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a id="movedown" href = "index.php?direct=3"> &darr;</a>';
 						}
 					?>
 				</div>
@@ -389,6 +396,11 @@ for($num = 1; $num <= $max; $num++) {	//необходимо будет опти
 <div class="clearfloat"></div>
 <div class="empty"></div>
 </div>
-<div id="footer">&copy 2012 Webler LLC &nbsp;</div>	
+<div id="footer">&copy 2012 Webler LLC &nbsp;
+<?php 
+   $json_main = ['Monster' => $monsters, 'Backpack' => $backpack, 'Height' => $Height, 'Width' => $Width];
+   $encode_front = json_encode($json_main);
+   echo '<div style="display:none" id="json">'.$encode_front.'</div>';
+?></div>	
 </body>
 </html>
