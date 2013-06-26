@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>rectExample</title>
+    <style>
+        #drawing{
+            width: 500px;
+            height: 250px;
+
+        }
+    </style>
+</head>
+<body>
+<div id="drawning_parent"></div>
+<script>
+    function setAttributes(el, attrs) {
+        for(var key in attrs) {
+            el.setAttribute(key, attrs[key]);
+        }
+    }
+    var new_canvas = document.createElement('canvas');
+    setAttributes(new_canvas, {'id': 'drawing', 'onclick': 'resize()'});
+    document.getElementById('drawning_parent').appendChild(new_canvas);
+    var radius = 30;
+
+    var canvas,
+            context,
+            centerX,
+            centerY;
+
+    window.onload = function() {
+        canvas = document.getElementById("drawing");
+        context = canvas.getContext("2d");
+        centerX = canvas.width / 2;
+        centerY = canvas.height / 2;
+
+        context.beginPath();
+        context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        context.fillStyle = 'green';
+        context.fill();
+    }
+
+    function resize () {
+        context.clearRect ( 0 , 0 , canvas.width , canvas.height);
+        context.beginPath();
+        context.arc(centerX/2, centerY/2, radius * 2, 0, 2 * Math.PI, false);
+        context.fillStyle= "#701be0"; // This changes the rectangle to blue
+        context.fill();
+    }
+
+</script>
+</body>
+</html>

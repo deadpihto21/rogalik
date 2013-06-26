@@ -1,0 +1,217 @@
+* {
+margin: 0;
+padding: 0;
+border: 0;
+font-weight: 100;
+}
+
+html, body {
+height: 100%;
+font-weight: 100;
+    overflow:hidden;
+
+}
+#container {
+position: relative;
+margin: 0 auto;
+min-height: 100%;
+}
+* html #container {
+height: 100%;
+width; 100%;
+}
+#header {
+margin: 0;
+border: 4px double #887245; /* ��������� ������� */
+width: 100%;
+height: 37px;
+float: right;
+left: 10px;
+text-align: center;
+background-color: #262419;
+}
+
+
+.right-title {
+	position: relative;
+	padding-left: 10px;
+	margin-top: 10px;
+	right: 30px;
+	color: white;
+	background: black;
+	float: left;
+	height: 20px;
+	width: 80px;
+}
+
+
+.clearfloat {
+clear: both;
+}
+
+.empty {
+height: 30px;
+}
+
+#footer {
+position: relative;
+background: #45454c;
+width: 100%;
+height: 30px;
+color: #ccc;
+font-size: .9em;
+margin: -30px auto 0;
+text-align: right;
+}
+
+
+#footer p {
+font-size: .9em;
+padding: 20px 0 0;
+text-align: center;
+}
+
+#footer a {
+color: #fff;
+}
+
+#footer a:hover {
+color: #999;
+}
+
+.box_table table 
+{
+    border-collapse: collapse; /* ������� ������� ����� ����� �������� */
+	margin: 20px;
+}
+.box_table td, .box_table th
+ {
+    border: 1px solid #000; /* ��������� ����� */
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	top: 20px;
+	left: 20px;
+    background:url('img/ground.jpg') no-repeat;
+    text-align: center;
+}
+.box_table tr{
+    height: 30px;
+}
+.box_table th
+ {
+    background: #afd792; /* ���� ���� */
+    color: #333;  /* ���� ������ */
+	width: 30px;
+	height: 30px;
+}
+
+.box_table tbody td:hover 
+{
+    background: #f3bd48; /* ���� ���� ��� ��������� */
+    color: #fff; /* ���� ������ ��� ��������� */
+}
+.box_table
+{
+	position: relative;
+	/*top: 20px;*/
+	overflow: auto;
+	/*width: 100%*/
+	/*width: 500px;*/
+}
+table 
+{
+    border-collapse: collapse; /* ������� ������� ����� ����� �������� */
+	margin: 0 20px;
+	/*height: 500px;*/
+}
+.drive
+{
+	position: relative;
+	/*display: block;*/
+	/*margin-top: 40px;
+	/*top: -480px;*/
+	height: 100px;
+	width: 100px;
+	/*left: 640px;*/
+	border: 1px black solid;
+}
+.message
+{
+	position: relative;
+	/*margin-top: 40px;
+	/*top: -450px;*/
+	height: 100px;
+	/*width: 200px;*/
+	/*left: 640px;*/
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px black solid;
+}
+.backpack
+{
+	position: relative;
+	/*margin-top: 40px;
+	/*top: -420px;*/
+	/*width: 300px;*/
+	/*left: 640px;*/
+	border: 1px black solid;
+}
+
+.equip
+{
+	position: relative;
+	margin-top: 10px;
+	/*top: -142px;*/
+	height: 100px;
+	width: 200px;
+	float: right;
+	/*left: 60px;*/
+	border: 1px black solid;
+}
+
+.monster_backpack
+{
+	position: relative;
+	top: -380px;
+	width: 300px;
+	height: 300px;
+	left: 640px;
+	border: 1px black solid;
+}
+.hero{
+    background:url("img/hero.jpg") no-repeat scroll -8px 0 transparent;
+    width:30px;
+    display:inline-block;
+    text-indent:-99999999px;
+    height: 30px;
+}
+.orc{
+    background:url("img/orc.jpg") no-repeat scroll 0px 0 transparent;
+    width:30px;
+    display:inline-block;
+    text-indent:-99999999px;
+    height: 30px;
+}
+.orc.wound{
+    opacity: 0.5;
+}
+.wall{
+    background:url("img/wall.jpg") no-repeat scroll 0px 0 transparent;
+    width:30px;
+    display:inline-block;
+    text-indent:-99999999px;
+    height: 30px;
+}
+.ore{
+    display: inline-block;
+    width: 15px;
+    height: 13px;
+    background: url('img/ore.png') no-repeat transparent;
+}
+.chain_sword_red{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url('img/chainsword.png') no-repeat transparent;
+}
