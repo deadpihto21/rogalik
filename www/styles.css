@@ -8,8 +8,7 @@ font-weight: 100;
 html, body {
 height: 100%;
 font-weight: 100;
-    overflow:hidden;
-
+overflow:hidden;
 }
 #container {
 position: relative;
@@ -81,18 +80,17 @@ color: #999;
 
 .box_table table 
 {
-    border-collapse: collapse; /* ������� ������� ����� ����� �������� */
 	margin: 20px;
+    background:url('img/ground.jpg') repeat;
 }
 .box_table td, .box_table th
  {
-    border: 1px solid #000; /* ��������� ����� */
+    border: none;
 	width: 30px;
 	height: 30px;
 	text-align: center;
 	top: 20px;
 	left: 20px;
-    background:url('img/ground.jpg') no-repeat;
     text-align: center;
 }
 .box_table tr{
@@ -180,7 +178,7 @@ table
 	border: 1px black solid;
 }
 .hero{
-    background:url("img/hero.jpg") no-repeat scroll -8px 0 transparent;
+    background:url("img/hero.png") no-repeat scroll -8px 0 transparent;
     width:30px;
     display:inline-block;
     text-indent:-99999999px;
@@ -199,19 +197,20 @@ table
 .wall{
     background:url("img/wall.jpg") no-repeat scroll 0px 0 transparent;
     width:30px;
-    display:inline-block;
+    display:block;
     text-indent:-99999999px;
     height: 30px;
 }
 .ore{
-    display: inline-block;
-    width: 15px;
-    height: 13px;
-    background: url('img/ore.png') no-repeat transparent;
+    background: url('img/ore.png') center no-repeat transparent;
 }
 .chain_sword_red{
-    display: inline-block;
+    display: block;
     width: 30px;
     height: 30px;
     background: url('img/chainsword.png') no-repeat transparent;
+}
+
+td.path{
+    background: none repeat scroll 0 0 rgba(255, 255, 0, 0.5);
 }

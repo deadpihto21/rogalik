@@ -1,3 +1,37 @@
+if(document.getElementsByClassName) {
+
+    getElementsByClass = function(classList, node) {
+        return (node || document).getElementsByClassName(classList)
+    }
+
+} else {
+
+    getElementsByClass = function(classList, node) {
+        var node = node || document,
+            list = node.getElementsByTagName('*'),
+            length = list.length,
+            classArray = classList.split(/\s+/),
+            classes = classArray.length,
+            result = [], i,j
+        for(i = 0; i < length; i++) {
+            for(j = 0; j < classes; j++)  {
+                if(list[i].className.search('\\b' + classArray[j] + '\\b') != -1) {
+                    result.push(list[i])
+                    break
+                }
+            }
+        }
+
+        return result
+    }
+}
+function hasClass_pure(ele,cls) {
+    return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+}
+
+
+
+
 jQuery(document).ready(function(){
         $('a').on('click', function(e){
             e.preventDefault();
@@ -46,7 +80,14 @@ jQuery('#tab1 tr').each(function(){
 
 
 function drawLine(element) {
-    jQuery('.path').removeClass('path');
+    var path = document.getElementsByClassName('path');
+    while (path.length>0){
+        for (i=0;i<path.length;i++){
+            path[i].className='';
+        }
+    }
+    /*
+    * Array.prototype.indexOf.call(hero[0].parentNode, hero[0])*/
     var x1 = jQuery('.hero').parent().index() + 1;
     var y1 = jQuery('.hero').parent().parent().index() + 1;
     var x2 = jQuery(element).index() + 1;

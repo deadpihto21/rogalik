@@ -1,30 +1,30 @@
 <?php
-	$Width = 16; $Height = 16; //размеры игровой комнаты
+	$Width = 36; $Height = 16; //размеры игровой комнаты
 	//$max = 5; //число монстров
-	require_once('class.php');
-	
-function make_seed() {									//инициализация таймером
+
+function make_seed () {									//инициализация таймером
 		list($usec, $sec) = explode(' ', microtime());
 		return (float) $sec + ((float) $usec * 100000);
 	}
+	// на будущее - подвязать к сиду уровень враждебности уровня - уровень монстров, уровень дропа и т.д.
 function initialize() {
 
 	}
 function obstacle($x, $y, $direction, $i) {  //расчет столкновений со стенками
 		global $monster_position;
 		$map = $_SESSION['map'];
-			if($direction == 1) if ($map[$x][$y-1][0] == 2 or obstacle_monster($x, $y, $direction, $i) == false) return false; else return true;
-			if($direction == 2) if ($map[$x-1][$y][0] == 2 or obstacle_monster($x, $y, $direction, $i) == false) return false; else return true;
-			if($direction == 3) if ($map[$x][$y+1][0] == 2 or obstacle_monster($x, $y, $direction, $i) == false) return false; else return true;
-			if($direction == 4) if ($map[$x+1][$y][0] == 2 or obstacle_monster($x, $y, $direction, $i) == false) return false; else return true;
+			if($direction == 8) if ($map[$x][$y-1][0] == 2 or obstacle_monster($x, $y, $direction, $i) == false) return false; else return true;
+			if($direction == 4) if ($map[$x-1][$y][0] == 2 or obstacle_monster($x, $y, $direction, $i) == false) return false; else return true;
+			if($direction == 2) if ($map[$x][$y+1][0] == 2 or obstacle_monster($x, $y, $direction, $i) == false) return false; else return true;
+			if($direction == 6) if ($map[$x+1][$y][0] == 2 or obstacle_monster($x, $y, $direction, $i) == false) return false; else return true;
 	}
 function obstacle_monster($x, $y, $direction, $num) {  //расчет столкновений
 		global $monster_position;
 		$map = $_SESSION['map'];
-		if($direction == 1) if ($x == $monster_position[$num][0] and $y-1 == $monster_position[$num][1]) return false; else return true;
-		if($direction == 2) if ($x-1 == $monster_position[$num][0] and $y == $monster_position[$num][1]) return false; else return true;
-		if($direction == 3) if ($x == $monster_position[$num][0] and $y+1 == $monster_position[$num][1]) return false; else return true;
-		if($direction == 4) if ($x+1 == $monster_position[$num][0] and $y == $monster_position[$num][1]) return false; else return true;		
+		if($direction == 8) if ($x == $monster_position[$num][0] and $y-1 == $monster_position[$num][1]) return false; else return true;
+		if($direction == 4) if ($x-1 == $monster_position[$num][0] and $y == $monster_position[$num][1]) return false; else return true;
+		if($direction == 2) if ($x == $monster_position[$num][0] and $y+1 == $monster_position[$num][1]) return false; else return true;
+		if($direction == 6) if ($x+1 == $monster_position[$num][0] and $y == $monster_position[$num][1]) return false; else return true;
 		}
 /*function move($monster_position) {  //движение монстра
 		$dir = mt_rand(1,4);
@@ -45,6 +45,13 @@ function generate_room() {  //генерация комнаты
 		for($j = 2; $j < $Height; $j++) $map[1][$j][0] = 2; //левая стенка
 		for($j = 2; $j < $Height; $j++) $map[$Width][$j][0] = 2; //правая стенка
 		for($i = 1; $i <= $Width; $i++) $map[$i][$Height][0] = 2; //стенка по низу комнаты
+		
+		$random_wall_position = mt_rand(1,4);  //в какой стене будет выход
+		if($random_wall_position == 1) $map[1][mt_rand(2, $Height-1)][0] = 0; //левая стена
+		if($random_wall_position == 2) $map[mt_rand(2,$Width-1)][1][0] = 0; //верх
+		if($random_wall_position == 3) $map[$Width][mt_rand(2, $Height-1)][0] = 0; //правая стена
+		if($random_wall_position == 4) $map[mt_rand(2,$Width-1)][$Height][0] = 0; //низ
+
 		
 		$a = floor($Width/2); //координаты центральной
 		$b = floor($Height/2); //точки
@@ -102,7 +109,7 @@ function generate_room() {  //генерация комнаты
 		$j = mt_rand(2,$Height-1);
 		$map[$i][$j][1] = 4;
 //----------установим монстров--------------------------------------------------------------------
-		$max = mt_rand(2, 6);
+		$max = mt_rand(5, 18);
 		//$max = 2;
 		for($i = 1; $i <= $max; $i++) {
 			$flag = false;
@@ -131,5 +138,26 @@ function generate_room() {  //генерация комнаты
 		$_SESSION['monster_position'][2] = $monster_position[2];*/
 		$_SESSION['map'] = $map;
 		return $map;
-	}	
+	}
+	function Brezenham($x1, $y1, $x2, $y2){
+        $deltaX = abs($x2 - $x1);
+        $deltaY = abs($y2 - $y1);
+        $signX = $x1 < $x2 ? 1 : -1;
+        $signY = $y1 < $y2 ? 1 : -1;
+        $error = $deltaX - $deltaY;
+        // здесь должен быть вывод конечной точки линии в виде (x2, y2)
+        while($x1 != $x2 || $y1 != $y2) {
+            // здесь должен быть вывод текущих рассчитанных точек линии в виде (x1, y1)
+            $error2 = $error * 2;
+            if($error2 > (-$deltaY)){
+                $error -= $deltaY;
+                $x1 += $signX;
+            }
+            if($error2 < $deltaX){
+                $error += $deltaX;
+                $y1 += $signY;
+            }
+        }
+    }
+
 ?>
